@@ -44,6 +44,20 @@
             font-size:14px;
         }
 
+        #stop_camera_button{
+            display: block;
+            border:none;
+            outline: none;
+            width:100px;
+            height:50px;
+            background-color: rgb(232, 61, 55);
+            color:#fff;
+            cursor: pointer;
+            border-radius: 5px;
+            margin:0 auto 50px auto;
+            font-size:14px;
+        }
+
         #camera_area {
             position: relative;
             width: 70vw;
@@ -57,8 +71,9 @@
 </head>
 
 <body>
-5
+6
     <button id="open_camera_button">开始人脸建档</button>
+    <button id="stop_camera_button">停止人脸建档</button>
     <div id="camera_area">
         <video autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
         <canvas id="face_area" width="783" height="11"></canvas>
@@ -71,9 +86,25 @@
             var localVideo = document.querySelector("video");
             var localCanvas = document.querySelector("canvas");
             var customURL = window.URL || window.webkitURL;
+            var localStream
+
+            document.getElementById('stop_camera_button').addEventListener('click',stopStreamFn)
+
+            function stopStreamFn(){
+                alert('停止建档')
+                localStream.stop();
+            }
 
             function mediaSuccessFn(stream){
                 if ("srcObject" in localVideo) {
+                    if (!stream.stop && stream.getTracks) {
+                        stream.stop = function () {
+                            this.getTracks().forEach(function (track) {
+                                track.stop();
+                            });
+                        };
+                    } 
+                    localStream=stream;
                     localVideo.srcObject = stream;
                     localVideo.onplay = poll;
                     setTimeout(() => {
@@ -81,6 +112,14 @@
                     }, 100)
 
                 } else {
+                    if (!stream.stop && stream.getTracks) {
+                        stream.stop = function () {
+                            this.getTracks().forEach(function (track) {
+                                track.stop();
+                            });
+                        };
+                    } 
+                    localStream = stream;
                     localVideo.src = customURL.createObjectURL(stream);
                     localVideo.onplay = poll;
                     setTimeout(() => {
