@@ -43,7 +43,6 @@
                     var localCanvas = document.querySelector("canvas");
                     var customURL=window.URL||window.webkitURL;
                     function initialize() {
-                        alert('5')
                         // try {
                         //     navigator.getUserMedia({
                         //         video: true
@@ -57,7 +56,6 @@
                         //     alert("getUserMedia error:", e);
                         // }
 
-                        setTimeout(()=>{
                              if (
                                 navigator.mediaDevices.getUserMedia ||
                                 navigator.getUserMedia ||
@@ -164,8 +162,6 @@
                             } else {
                                 alert("摄像头打开失败,请检查权限设置!")
                             }
-                        },1000)
-
                        
                     }
 
