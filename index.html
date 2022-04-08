@@ -69,7 +69,6 @@
                                         .getUserMedia({ video: true })
                                         .then((stream) => {
                                             if("srcObject" in localVideo){
-                                                alert('有srcObject')
                                                 localVideo.srcObject = stream;
                                                 localVideo.onplay = poll;
                                                 setTimeout(()=>{
@@ -94,7 +93,6 @@
                                     navigator.webkitGetUserMedia({ video: true },
                                         (stream) => {
                                             if ("srcObject" in localVideo) {
-                                                alert('有srcObject')
                                                 localVideo.srcObject = stream;
                                                 localVideo.onplay = poll;
                                                 setTimeout(() => {
@@ -117,7 +115,6 @@
                                     navigator.mozGetUserMedia({ video: true },
                                         (stream) => {
                                             if ("srcObject" in localVideo) {
-                                                alert('有srcObject')
                                                 localVideo.srcObject = stream;
                                                 localVideo.onplay = poll;
                                                 setTimeout(()=>{
@@ -140,7 +137,6 @@
                                     navigator.getUserMedia({ video: true },
                                         (stream) => {
                                             if ("srcObject" in localVideo) {
-                                                alert('有srcObject')
                                                 localVideo.srcObject = stream;
                                                 localVideo.onplay = poll;
                                                 setTimeout(()=>{
