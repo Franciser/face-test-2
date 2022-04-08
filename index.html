@@ -36,7 +36,7 @@
             outline: none;
             width:100px;
             height:50px;
-            background-color: rgb(218, 152, 46);
+            background-color: rgb(240, 159, 28);
             color:#fff;
             cursor: pointer;
             border-radius: 5px;
@@ -71,7 +71,7 @@
 </head>
 
 <body>
-6
+7
     <button id="open_camera_button">开始人脸建档</button>
     <button id="stop_camera_button">停止人脸建档</button>
     <div id="camera_area">
@@ -91,7 +91,6 @@
             document.getElementById('stop_camera_button').addEventListener('click',stopStreamFn)
 
             function stopStreamFn(){
-                alert('停止建档')
                 localStream.stop();
             }
 
