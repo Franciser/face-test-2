@@ -15,25 +15,39 @@
             }
             video {
                 display: block;
-                position: absolute;
+                /* position: absolute;
                 top: 0;
                 bottom: 0;
                 left: 0;
                 right: 0;
                 width: 100%;
-                height: 100%;
+                height: 100%; */
+                min-width:100%;
+                height:100%;
             }
             button {
-                position: absolute;
+                /* position: absolute; */
                 top: 20px;
                 left: 20px;
+            }
+            #camera_area{
+                position: relative;
+                width:50%;
+                height:calc(50vw);
+                border-radius: 50%;
+                margin:0 auto;
+                overflow: hidden;
+                background-color:rgb(187, 212, 245);
             }
         </style>
     </head>
     <body>
-        <video autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
-        <canvas width="783" height="11"></canvas>
-        <button>开启摄像头</button>
+        
+        <button id="open_camera_button">开启摄像头</button>
+        <div id="camera_area">
+            <video autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
+            <canvas id="face_area" width="783" height="11"></canvas>
+        </div>
 
         <script type="text/javascript" src="/js/ccv.js"></script>
         <script type="text/javascript" src="/js/face.js"></script>
@@ -73,14 +87,14 @@
                                                 localVideo.onplay = poll;
                                                 setTimeout(()=>{
                                                     localVideo.play();
-                                                },1000)
+                                                },100)
                                                 
                                             }else{
                                                 localVideo.src= customURL.createObjectURL(stream);
                                                 localVideo.onplay = poll;
                                                 setTimeout(() => {
                                                     localVideo.play();
-                                                }, 1000)
+                                                }, 100)
                                             }
                                             // localVideo.srcObject = stream;
                                             // localVideo.onplay = poll;
@@ -97,13 +111,13 @@
                                                 localVideo.onplay = poll;
                                                 setTimeout(() => {
                                                     localVideo.play();
-                                                }, 1000)
+                                                }, 100)
                                             } else {
                                                 localVideo.src = customURL.createObjectURL(stream);
                                                 localVideo.onplay = poll;
                                                 setTimeout(() => {
                                                     localVideo.play();
-                                                }, 1000)
+                                                }, 100)
                                             }
                                         },
                                         (error) => {
@@ -119,13 +133,13 @@
                                                 localVideo.onplay = poll;
                                                 setTimeout(()=>{
                                                     localVideo.play();
-                                                },1000)
+                                                },100)
                                             } else {
                                                 localVideo.src = customURL.createObjectURL(stream);
                                                 localVideo.onplay = poll;
                                                 setTimeout(()=>{
                                                     localVideo.play();
-                                                },1000)
+                                                },100)
                                             }
                                         },
                                         (error) => {
@@ -141,13 +155,13 @@
                                                 localVideo.onplay = poll;
                                                 setTimeout(()=>{
                                                     localVideo.play();
-                                                },1000)
+                                                },100)
                                             } else {
                                                 localVideo.src = customURL.createObjectURL(stream);
                                                 localVideo.onplay = poll;
                                                 setTimeout(()=>{
                                                     localVideo.play();
-                                                },1000)
+                                                },100)
                                             }
                                         },
                                         (error) => {
