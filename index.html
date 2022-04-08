@@ -58,7 +58,7 @@
 
 <body>
 4
-    <button id="open_camera_button">开启摄像头</button>
+    <button id="open_camera_button">开始人脸建档</button>
     <div id="camera_area">
         <video autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
         <canvas id="face_area" width="783" height="11"></canvas>
@@ -71,6 +71,27 @@
             var localVideo = document.querySelector("video");
             var localCanvas = document.querySelector("canvas");
             var customURL = window.URL || window.webkitURL;
+
+            function mediaSuccessFn(stream){
+                if ("srcObject" in localVideo) {
+                    localVideo.srcObject = stream;
+                    localVideo.onplay = poll;
+                    setTimeout(() => {
+                        localVideo.play();
+                    }, 100)
+
+                } else {
+                    localVideo.src = customURL.createObjectURL(stream);
+                    localVideo.onplay = poll;
+                    setTimeout(() => {
+                        localVideo.play();
+                    }, 100)
+                }
+            };
+
+            function mediaErrorFn(error){
+                alert("Failed to get access to local media. Error code was " + error.code + ".");
+            }
             function initialize() {
                 // try {
                 //     navigator.getUserMedia({
@@ -96,48 +117,13 @@
                         //最新的标准API
                         navigator.mediaDevices
                             .getUserMedia({ video: true })
-                            .then((stream) => {
-                                if ("srcObject" in localVideo) {
-                                    localVideo.srcObject = stream;
-                                    localVideo.onplay = poll;
-                                    setTimeout(() => {
-                                        localVideo.play();
-                                    }, 100)
-
-                                } else {
-                                    localVideo.src = customURL.createObjectURL(stream);
-                                    localVideo.onplay = poll;
-                                    setTimeout(() => {
-                                        localVideo.play();
-                                    }, 100)
-                                }
-                                // localVideo.srcObject = stream;
-                                // localVideo.onplay = poll;
-                            })
-                            .catch((error) => {
-                                alert("Failed to get access to local media. Error code was " + error.code + ".");
-                            });
+                            .then(mediaSuccessFn)
+                            .catch(mediaErrorFn);
                     } else if (navigator.webkitGetUserMedia) {
                         //webkit核心浏览器
                         navigator.webkitGetUserMedia({ video: true },
-                            (stream) => {
-                                if ("srcObject" in localVideo) {
-                                    localVideo.srcObject = stream;
-                                    localVideo.onplay = poll;
-                                    setTimeout(() => {
-                                        localVideo.play();
-                                    }, 100)
-                                } else {
-                                    localVideo.src = customURL.createObjectURL(stream);
-                                    localVideo.onplay = poll;
-                                    setTimeout(() => {
-                                        localVideo.play();
-                                    }, 100)
-                                }
-                            },
-                            (error) => {
-                                alert("Failed to get access to local media. Error code was " + error.code + ".");
-                            }
+                            mediaSuccessFn,
+                            mediaErrorFn
                         );
                     } else if (navigator.mozGetUserMedia) {
                         //firfox浏览器
