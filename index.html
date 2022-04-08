@@ -43,17 +43,73 @@
                     var localCanvas = document.querySelector("canvas");
 
                     function initialize() {
-                        try {
-                            navigator.getUserMedia({
-                                video: true
-                            }, function (stream) {
-                                localVideo.srcObject = stream;
-                                localVideo.onplay = poll;
-                            }, function (error) {
-                                alert("Failed to get access to local media. Error code was " + error.code + ".");
-                            });
-                        } catch (e) {
-                            alert("getUserMedia error:", e);
+                        // try {
+                        //     navigator.getUserMedia({
+                        //         video: true
+                        //     }, function (stream) {
+                        //         localVideo.srcObject = stream;
+                        //         localVideo.onplay = poll;
+                        //     }, function (error) {
+                        //         alert("Failed to get access to local media. Error code was " + error.code + ".");
+                        //     });
+                        // } catch (e) {
+                        //     alert("getUserMedia error:", e);
+                        // }
+
+                        if (
+                            navigator.mediaDevices.getUserMedia ||
+                            navigator.getUserMedia ||
+                            navigator.webkitGetUserMedia ||
+                            navigator.mozGetUserMedia
+                        ) {
+                            // alert('可以打开摄像头')
+                            if (navigator.mediaDevices.getUserMedia) {
+                                //最新的标准API
+                                navigator.mediaDevices
+                                    .getUserMedia({video:true})
+                                    .then((stream)=>{
+                                        localVideo.srcObject = stream;
+                                        localVideo.onplay = poll;
+                                    })
+                                    .catch((error)=>{
+                                        alert("Failed to get access to local media. Error code was " + error.code + ".");
+                                    });
+                            } else if (navigator.webkitGetUserMedia) {
+                                //webkit核心浏览器
+                                navigator.webkitGetUserMedia({video:true}, 
+                                    (stream)=>{
+                                        localVideo.srcObject = stream;
+                                        localVideo.onplay = poll;
+                                    }, 
+                                    (error) => {
+                                        alert("Failed to get access to local media. Error code was " + error.code + ".");
+                                    }
+                                );
+                            } else if (navigator.mozGetUserMedia) {
+                                //firfox浏览器
+                                navigator.mozGetUserMedia({video:true}, 
+                                    (stream)=>{
+                                        localVideo.srcObject = stream;
+                                        localVideo.onplay = poll;
+                                    }, 
+                                    (error) => {
+                                        alert("Failed to get access to local media. Error code was " + error.code + ".");
+                                    }
+                                );
+                            } else if (navigator.getUserMedia) {
+                                //旧版API
+                                navigator.getUserMedia({video:true}, 
+                                    (stream)=>{
+                                        localVideo.srcObject = stream;
+                                        localVideo.onplay = poll;
+                                    }, 
+                                    (error) => {
+                                        alert("Failed to get access to local media. Error code was " + error.code + ".");
+                                    }
+                                );
+                            }
+                        } else {
+                            alert("摄像头打开失败,请检查权限设置!")
                         }
                     }
 
