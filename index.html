@@ -41,9 +41,9 @@
             try {
                     var localVideo = document.querySelector("video");
                     var localCanvas = document.querySelector("canvas");
-
+                    var customURL=window.URL||window.webkitURL;
                     function initialize() {
-                        alert('2')
+                        alert('3')
                         // try {
                         //     navigator.getUserMedia({
                         //         video: true
@@ -70,8 +70,16 @@
                                     navigator.mediaDevices
                                         .getUserMedia({ video: true })
                                         .then((stream) => {
-                                            localVideo.srcObject = stream;
-                                            localVideo.onplay = poll;
+                                            if("srcObject" in localVideo){
+                                                alert('有srcObject')
+                                                localVideo.srcObject = stream;
+                                                localVideo.onplay = poll;
+                                            }else{
+                                                localVideo.src= customURL.createObjectURL(stream);
+                                                localVideo.onplay = poll;
+                                            }
+                                            // localVideo.srcObject = stream;
+                                            // localVideo.onplay = poll;
                                         })
                                         .catch((error) => {
                                             alert("Failed to get access to local media. Error code was " + error.code + ".");
@@ -80,8 +88,14 @@
                                     //webkit核心浏览器
                                     navigator.webkitGetUserMedia({ video: true },
                                         (stream) => {
-                                            localVideo.srcObject = stream;
-                                            localVideo.onplay = poll;
+                                            if ("srcObject" in localVideo) {
+                                                alert('有srcObject')
+                                                localVideo.srcObject = stream;
+                                                localVideo.onplay = poll;
+                                            } else {
+                                                localVideo.src = customURL.createObjectURL(stream);
+                                                localVideo.onplay = poll;
+                                            }
                                         },
                                         (error) => {
                                             alert("Failed to get access to local media. Error code was " + error.code + ".");
@@ -91,8 +105,14 @@
                                     //firfox浏览器
                                     navigator.mozGetUserMedia({ video: true },
                                         (stream) => {
-                                            localVideo.srcObject = stream;
-                                            localVideo.onplay = poll;
+                                            if ("srcObject" in localVideo) {
+                                                alert('有srcObject')
+                                                localVideo.srcObject = stream;
+                                                localVideo.onplay = poll;
+                                            } else {
+                                                localVideo.src = customURL.createObjectURL(stream);
+                                                localVideo.onplay = poll;
+                                            }
                                         },
                                         (error) => {
                                             alert("Failed to get access to local media. Error code was " + error.code + ".");
@@ -102,8 +122,14 @@
                                     //旧版API
                                     navigator.getUserMedia({ video: true },
                                         (stream) => {
-                                            localVideo.srcObject = stream;
-                                            localVideo.onplay = poll;
+                                            if ("srcObject" in localVideo) {
+                                                alert('有srcObject')
+                                                localVideo.srcObject = stream;
+                                                localVideo.onplay = poll;
+                                            } else {
+                                                localVideo.src = customURL.createObjectURL(stream);
+                                                localVideo.onplay = poll;
+                                            }
                                         },
                                         (error) => {
                                             alert("Failed to get access to local media. Error code was " + error.code + ".");
