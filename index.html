@@ -31,7 +31,7 @@
         </style>
     </head>
     <body>
-        <video autoplay="" muted=""></video>
+        <video autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
         <canvas width="783" height="11"></canvas>
         <button>开启摄像头</button>
 
@@ -43,7 +43,7 @@
                     var localCanvas = document.querySelector("canvas");
                     var customURL=window.URL||window.webkitURL;
                     function initialize() {
-                        alert('4')
+                        alert('5')
                         // try {
                         //     navigator.getUserMedia({
                         //         video: true
