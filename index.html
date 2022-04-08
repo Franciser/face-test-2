@@ -30,10 +30,17 @@
             /* height:70vw; */
         }
 
-        button {
-            /* position: absolute; */
-            top: 20px;
-            left: 20px;
+        #open_camera_button{
+            display: block;
+            border:none;
+            outline: none;
+            width:100px;
+            height:50px;
+            background-color: rgb(218, 152, 46);
+            color:#fff;
+            cursor: pointer;
+            border-radius: 5px;
+            margin:0 auto 50px auto;
         }
 
         #camera_area {
@@ -49,7 +56,7 @@
 </head>
 
 <body>
-2
+3
     <button id="open_camera_button">开启摄像头</button>
     <div id="camera_area">
         <video autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
