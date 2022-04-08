@@ -43,7 +43,7 @@
                     var localCanvas = document.querySelector("canvas");
                     var customURL=window.URL||window.webkitURL;
                     function initialize() {
-                        alert('3')
+                        alert('4')
                         // try {
                         //     navigator.getUserMedia({
                         //         video: true
@@ -74,9 +74,16 @@
                                                 alert('有srcObject')
                                                 localVideo.srcObject = stream;
                                                 localVideo.onplay = poll;
+                                                setTimeout(()=>{
+                                                    localVideo.play();
+                                                },1000)
+                                                
                                             }else{
                                                 localVideo.src= customURL.createObjectURL(stream);
                                                 localVideo.onplay = poll;
+                                                setTimeout(() => {
+                                                    localVideo.play();
+                                                }, 1000)
                                             }
                                             // localVideo.srcObject = stream;
                                             // localVideo.onplay = poll;
@@ -92,9 +99,15 @@
                                                 alert('有srcObject')
                                                 localVideo.srcObject = stream;
                                                 localVideo.onplay = poll;
+                                                setTimeout(() => {
+                                                    localVideo.play();
+                                                }, 1000)
                                             } else {
                                                 localVideo.src = customURL.createObjectURL(stream);
                                                 localVideo.onplay = poll;
+                                                setTimeout(() => {
+                                                    localVideo.play();
+                                                }, 1000)
                                             }
                                         },
                                         (error) => {
@@ -109,9 +122,15 @@
                                                 alert('有srcObject')
                                                 localVideo.srcObject = stream;
                                                 localVideo.onplay = poll;
+                                                setTimeout(()=>{
+                                                    localVideo.play();
+                                                },1000)
                                             } else {
                                                 localVideo.src = customURL.createObjectURL(stream);
                                                 localVideo.onplay = poll;
+                                                setTimeout(()=>{
+                                                    localVideo.play();
+                                                },1000)
                                             }
                                         },
                                         (error) => {
@@ -126,9 +145,15 @@
                                                 alert('有srcObject')
                                                 localVideo.srcObject = stream;
                                                 localVideo.onplay = poll;
+                                                setTimeout(()=>{
+                                                    localVideo.play();
+                                                },1000)
                                             } else {
                                                 localVideo.src = customURL.createObjectURL(stream);
                                                 localVideo.onplay = poll;
+                                                setTimeout(()=>{
+                                                    localVideo.play();
+                                                },1000)
                                             }
                                         },
                                         (error) => {
