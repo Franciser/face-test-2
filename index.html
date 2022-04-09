@@ -105,7 +105,7 @@
 </head>
 
 <body>
-10
+11
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -114,7 +114,7 @@
     </div>
     
     <div id="camera_area">
-        <video autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
+        <video id="camera_video" autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
         <canvas id="face_area" width="783" height="11"></canvas>
     </div>
 
@@ -122,8 +122,8 @@
     <!-- <script type="text/javascript" src="/js/face.js"></script> -->
     <script type='text/javascript'>
         try {
-            var localVideo = document.querySelector("video");
-            var localCanvas = document.querySelector("canvas");
+            var localVideo = document.getElementById("camera_video");
+            var localCanvas = document.getElementById("face_area");
             var customURL = window.URL || window.webkitURL;
             var localStream=null;
             var chunks = [];
