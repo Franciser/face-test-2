@@ -105,7 +105,7 @@
 </head>
 
 <body>
-20
+21
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -169,6 +169,8 @@
                     cutImgArr.push(canvas.toDataURL("image/png"))
                 }else{
                     clearInterval(cutTimer)
+                    //展示截图
+                    showCutImgFn();
                 }
                 
                 // let img = document.createElement("img");
