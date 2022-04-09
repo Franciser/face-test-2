@@ -105,7 +105,7 @@
 </head>
 
 <body>
-9
+10
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -330,7 +330,7 @@
             //     setTimeout(poll, 500);
             // }
 
-            document.querySelector("button").onclick = initialize;
+            document.getElementById("open_camera_button").addEventListener('click', initialize);
         } catch (error) {
             throw error;
         }
