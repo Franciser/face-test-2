@@ -105,7 +105,7 @@
 </head>
 
 <body>
-9
+10
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -121,7 +121,7 @@
     <script type="text/javascript" src="/js/ccv.js"></script>
     <script type="text/javascript" src="/js/face.js"></script>
     <script type='text/javascript'>
-        try {
+        // try {
             var localVideo = document.getElementById("camera_video");
             var localCanvas = document.getElementById("face_canvas");
             var customURL = window.URL || window.webkitURL;
@@ -129,6 +129,8 @@
             var chunks = [];
             var recorderFile = null;
             var mediaRecorder = null;
+
+            document.getElementById("open_camera_button").addEventListener('click', initialize);
 
             document.getElementById('stop_camera_button').addEventListener('click',stopStreamFn)
 
@@ -330,10 +332,10 @@
             //     setTimeout(poll, 500);
             // }
 
-            document.getElementById("open_camera_button").addEventListener('click', initialize);
-        } catch (error) {
-            throw error;
-        }
+            
+        // } catch (error) {
+            // throw error;
+        // }
 
     </script>
 </body>
