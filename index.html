@@ -105,7 +105,7 @@
 </head>
 
 <body>
-18
+19
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -161,7 +161,6 @@
             }
 
             function cutVideoImgFn(){
-                clearInterval(cutTimer);
                 let canvas = document.createElement("canvas");
                 canvas.width = localVideo.videoWidth;
                 canvas.height = localVideo.videoHeight;
@@ -216,6 +215,7 @@
                     }, 100)
 
                     //每隔一秒就截图
+                    clearInterval(cutTimer);
                     cutTimer = setInterval(cutVideoImgFn, 1000)
 
                     mediaRecorder = new MediaRecorder(stream);
