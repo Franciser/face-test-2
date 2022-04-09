@@ -105,7 +105,7 @@
 </head>
 
 <body>
-13
+14
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -116,14 +116,17 @@
     <div id="camera_area">
         <video id="camera_video" autoplay="" muted="" playsinline="true" webkit-playsinline="true"></video>
     </div>
-    <canvas id="face_area" width="320" height="480"></canvas>
+    <div id="img_priview_wrap">
+
+    </div>
+    <!-- <canvas id="face_area" width="320" height="480"></canvas> -->
     <!-- <script type="text/javascript" src="/js/ccv.js"></script> -->
     <!-- <script type="text/javascript" src="/js/face.js"></script> -->
     <script type='text/javascript'>
         try {
             var localVideo = document.getElementById("camera_video");
-            var localCanvas = document.getElementById("face_area");
-            var context = localCanvas.getContext('2d');
+            // var localCanvas = document.getElementById("face_area");
+            // var context = localCanvas.getContext('2d');
             var customURL = window.URL || window.webkitURL;
             var localStream=null;
             var chunks = [];
@@ -138,8 +141,14 @@
             });
 
             document.getElementById('capture_video_button').addEventListener('click', function () {
-                console.log(localVideo.videoWidth,localVideo.videoHeight)
-                context.drawImage(localVideo, 0, 0, 320, 480);
+                let canvas = document.createElement("canvas");
+                canvas.width = localVideo.videoWidth;
+                canvas.height = localVideo.videoHeight;
+                canvas.getContext('2d').drawImage(localVideo, 0, 0, canvas.width, canvas.height);
+
+                let img = document.createElement("img");
+                img.src = canvas.toDataURL("image/png");
+                document.getElementById("img_priview_wrap").appendChild(img);
             });
 
             function getCurrentDate() {
