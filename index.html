@@ -105,7 +105,7 @@
 </head>
 
 <body>
-12
+13
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -138,6 +138,7 @@
             });
 
             document.getElementById('capture_video_button').addEventListener('click', function () {
+                console.log(localVideo.videoWidth,localVideo.videoHeight)
                 context.drawImage(localVideo, 0, 0, 320, 480);
             });
 
