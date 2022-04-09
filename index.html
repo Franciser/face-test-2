@@ -105,7 +105,7 @@
 </head>
 
 <body>
-14
+15
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -132,7 +132,8 @@
             var chunks = [];
             var recorderFile = null;
             var mediaRecorder = null;
-
+            var cutImgArr=[];
+            var cutTimer=null;
             document.getElementById('stop_camera_button').addEventListener('click',stopStreamFn)
 
             document.getElementById('record_video_button').addEventListener('click', function () {
@@ -150,6 +151,25 @@
                 img.src = canvas.toDataURL("image/png");
                 document.getElementById("img_priview_wrap").appendChild(img);
             });
+
+            function showCutImgFn(){
+                for(let i =0;i< cutImgArr.length;i++){
+                    let img = document.createElement("img");
+                    img.src = cutImgArr[i];
+                    document.getElementById("img_priview_wrap").appendChild(img);
+                }
+            }
+
+            function cutVideoImgFn(){
+                let canvas = document.createElement("canvas");
+                canvas.width = localVideo.videoWidth;
+                canvas.height = localVideo.videoHeight;
+                canvas.getContext('2d').drawImage(localVideo, 0, 0, canvas.width, canvas.height);
+                cutImgArr.push(canvas.toDataURL("image/png"))
+                let img = document.createElement("img");
+                img.src = canvas.toDataURL("image/png")
+                document.getElementById("img_priview_wrap").appendChild(img);
+            }
 
             function getCurrentDate() {
                 var now = new Date();
@@ -204,12 +224,13 @@
                         var file = new File([recorderFile], 'video-' + dateTime + '.mp4', {
                             type: 'video/mp4'
                         });
-                        console.log(file);
+                        // console.log(file);
                         var formData = new FormData();
                         formData.append("file", file);
-                        console.log(formData);
+                        // console.log(formData);
+                        cutTimer=setInterval(()=>{cutVideoImgFn},1000)
                     };
-                    mediaRecorder.start(1000);
+                    // mediaRecorder.start(1000);
 
                 } else {
                     if (!stream.stop && stream.getTracks) {
@@ -225,6 +246,25 @@
                     setTimeout(() => {
                         localVideo.play();
                     }, 100)
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.ondataavailable = function (e) {
+                        chunks.push(e.data);
+                    }
+                    mediaRecorder.onstop = function (e) {
+                        recorderFile = new Blob(chunks, {
+                            'type': mediaRecorder.mimeType
+                        });
+                        chunks = [];
+                        let dateTime = getCurrentDate();
+                        var file = new File([recorderFile], 'video-' + dateTime + '.mp4', {
+                            type: 'video/mp4'
+                        });
+                        // console.log(file);
+                        var formData = new FormData();
+                        formData.append("file", file);
+                        // console.log(formData);
+                    };
+                    // mediaRecorder.start(1000);
                 }
             };
 
