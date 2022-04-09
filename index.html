@@ -105,7 +105,7 @@
 </head>
 
 <body>
-19
+20
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -165,11 +165,16 @@
                 canvas.width = localVideo.videoWidth;
                 canvas.height = localVideo.videoHeight;
                 canvas.getContext('2d').drawImage(localVideo, 0, 0, canvas.width, canvas.height);
-                cutImgArr.push(canvas.toDataURL("image/png"))
-                let img = document.createElement("img");
-                console.log(canvas.toDataURL("image/png"))
-                img.src = canvas.toDataURL("image/png")
-                document.getElementById("img_priview_wrap").appendChild(img);
+                if(cutImgArr.length<3){
+                    cutImgArr.push(canvas.toDataURL("image/png"))
+                }else{
+                    clearInterval(cutTimer)
+                }
+                
+                // let img = document.createElement("img");
+                // console.log(canvas.toDataURL("image/png"))
+                // img.src = canvas.toDataURL("image/png")
+                // document.getElementById("img_priview_wrap").appendChild(img);
             }
 
             function getCurrentDate() {
