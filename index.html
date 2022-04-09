@@ -105,7 +105,7 @@
 </head>
 
 <body>
-16
+17
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -229,7 +229,7 @@
                         var formData = new FormData();
                         formData.append("file", file);
                         // console.log(formData);
-                        cutTimer=setInterval(()=>{cutVideoImgFn},1000)
+                        cutTimer=setInterval(cutVideoImgFn,1000)
                     };
                     // mediaRecorder.start(1000);
 
