@@ -105,7 +105,7 @@
 </head>
 
 <body>
-17
+18
     <div id="tools_wrap">
         <button id="open_camera_button">开始人脸建档</button>
         <button id="stop_camera_button">停止人脸建档</button>
@@ -161,6 +161,7 @@
             }
 
             function cutVideoImgFn(){
+                clearInterval(cutTimer);
                 let canvas = document.createElement("canvas");
                 canvas.width = localVideo.videoWidth;
                 canvas.height = localVideo.videoHeight;
@@ -193,6 +194,8 @@
 
             function stopStreamFn(){
                 localStream.stop();
+                //停止截图
+                clearInterval(cutTimer);
             }
 
             function mediaSuccessFn(stream){
@@ -212,6 +215,9 @@
                         localVideo.play();
                     }, 100)
 
+                    //每隔一秒就截图
+                    cutTimer = setInterval(cutVideoImgFn, 1000)
+
                     mediaRecorder = new MediaRecorder(stream);
                     mediaRecorder.ondataavailable = function (e) {
                         chunks.push(e.data);
@@ -229,7 +235,6 @@
                         var formData = new FormData();
                         formData.append("file", file);
                         // console.log(formData);
-                        cutTimer=setInterval(cutVideoImgFn,1000)
                     };
                     // mediaRecorder.start(1000);
 
